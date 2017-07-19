@@ -1,0 +1,12 @@
+applications:
+  - name: chuck-repo-eureka
+    path: chuck-repo/build/libs/chuck-repo.jar
+    buildpack: java_buildpack
+    instances: 2
+    services:
+      - chuck-eureka
+  - name: chuck-service-eureka
+    path: chuck-service/build/libs/chuck-service.jar
+    buildpack: java_buildpack
+    services:
+      - chuck-eureka
