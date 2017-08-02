@@ -27,5 +27,10 @@ class ChuckController(val chuckRepoClient: ChuckRepoClient) {
 @FeignClient("chuck-repo-eureka")
 interface ChuckRepoClient {
     @RequestMapping("/jokes/random")
-    fun joke(): String
+    fun joke(): JokeResponse
 }
+
+data class JokeResponse(
+        val joke: String? = null,
+        val appId: String? = null
+)

@@ -1,5 +1,6 @@
 package com.cloudnative.chuck
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient
@@ -23,7 +24,12 @@ val jokes = arrayOf(
 )
 
 @RestController
-class ChuckController {
+class ChuckController(@Value("\${vcap.application.instance_index}") val appId: String) {
     @GetMapping("/jokes/random")
-    fun joke() = jokes[random.nextInt(jokes.size)]
+    fun joke() = JokeResponse(
+            joke = jokes[random.nextInt(jokes.size)],
+            appId = appId
+    )
 }
+
+data class JokeResponse(val joke: String, val appId: String)
